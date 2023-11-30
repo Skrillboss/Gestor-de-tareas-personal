@@ -1,3 +1,5 @@
+<?php include_once 'tarea.php' ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,21 +14,7 @@
     <?php include_once 'cabecera.html' ?>
 
     <?php
-
-    $titulo = '';
-    $urgencia = 'noUrgente';
-    $descripcion = '';
-
-    if (isset($_POST['titulo'])) {
-        $titulo = $_POST['titulo'];
-    }
-    if (isset($_POST['urgencia'])) {
-        $urgencia = $_POST['urgencia'];
-    }
-    if (isset($_POST['titulo'])) {
-        $descripcion = $_POST['descripcion'];
-    }
-
+    $tarea = Tarea::fromBody();
     ?>
 
     <form method="POST" action="publicar.php">
@@ -34,19 +22,19 @@
             <legend>Agregar una nueva tarea</legend>
 
             <label for="titulo">Titulo</label>
-            <input type="text" name="titulo" id="titulo" value="<?php echo $titulo ?>">
+            <input type="text" name="titulo" id="titulo" value="<?php echo $tarea->titulo ?>">
 
-            <select name="urgecia" id="">
-                <option value="urgente" <?php if ($urgencia == 'urgente') {
+            <select name="urgencia" id="">
+                <option value="urgente" <?php if ($tarea->urgencia == 'urgente') {
                                             echo 'selected';
                                         }  ?>>Urgente</option>
-                <option value="noUrgente" <?php if ($urgencia == 'noUrgente') {
+                <option value="noUrgente" <?php if ($tarea->urgencia == 'noUrgente') {
                                                 echo 'selected';
                                             }  ?>>No Urgente</option>
             </select>
 
             <label for="descripcion">Descripcion</label>
-            <input type="text" name="descripcion" id="descripcion" value="<?php echo $titulo ?>">
+            <input type="text" name="descripcion" id="descripcion" value="<?php echo $tarea->descripcion ?>">
         </fieldset>
         <button type="submit">Agragar tarea</button>
     </form>

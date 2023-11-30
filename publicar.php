@@ -1,3 +1,5 @@
+<?php include_once 'tarea.php' ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,56 +7,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vista Previa</title>
+
 </head>
 
 <body>
 
     <?php
 
-    $titulo = '';
-    $urgencia = 'noUrgente';
-    $descripcion = '';
-
-    if (isset($_POST['titulo'])) {
-        $titulo = $_POST['titulo'];
-    }
-    if (isset($_POST['urgencia'])) {
-        $urgencia = $_POST['urgencia'];
-    }
-    if (isset($_POST['titulo'])) {
-        $descripcion = $_POST['descripcion'];
-    }
+    $tarea = Tarea::fromBody();
 
     ?>
 
-
-    <h1>Vista previa</h1>
     <form method="POST" action="publicar.php">
-        <fieldset>
-            <legend>Tarea</legend>
-            <h2>Titulo:</h2>
-            <h3><?php echo $titulo; ?></h3>
+        <?php if (isset($_POST['aceptar'])) : ?>
 
-            <!-- aqui debo agragar una imagen '!' si es urgente o no -->
+            <h1>Tarea agregada</h1>
 
-            <details>
-                <summary>Descripcion</summary>
-                <p><?php echo $descripcion; ?></p>
-            </details>
+            <fieldset>
+                <legend>Tarea</legend>
+                <h2>Titulo:</h2>
+                <h3><?php echo $tarea->titulo; ?></h3>
+                <?php echo $tarea->titulo; ?>
+                <?php echo $tarea->titulo; ?>
 
-        </fieldset>
+                <!-- aqui debo agragar una imagen '!' si es urgente o no -->
 
-        <input type="hidden" name="titulo" value="<?php echo $titulo; ?>">
-        <input type="hidden" name="urgecia" value="<?php echo $urgencia; ?>">
-        <input type="hidden" name="descripcion" value="<?php echo $descripcion; ?>">
+                <details>
+                    <summary>Descripcion</summary>
+                    <p><?php echo $tarea->descripcion; ?></p>
+                </details>
 
-        <button type="submit">Aceptar</button>
-        <button type="submit" formaction="index.php">Cancelar</button>
+            </fieldset>
+            <a href="index.php">Volver al inicio</a>
+
+        <?php else : ?>
+
+            <h1>Vista previa</h1>
+
+            <fieldset>
+                <legend>Tarea</legend>
+                <h2>Titulo:</h2>
+                <h3> <?php echo $tarea->titulo; ?></h3>
+
+                <!-- aqui debo agragar una imagen '!' si es urgente o no -->
+
+                <details>
+                    <summary>Descripcion</summary>
+                    <p><?php echo $tarea->descripcion; ?></p>
+                </details>
+
+            </fieldset>
+
+            <input type="hidden" name="titulo" value="<?php echo $tarea->titulo; ?>">
+            <input type="hidden" name="urgecia" value="<?php echo $tarea->urgencia; ?>">
+            <input type="hidden" name="descripcion" value="<?php echo $tarea->descripcion; ?>">
+
+            <button type="submit" name="aceptar">Aceptar</button>
+            <button type="submit" formaction="index.php">Cancelar</button>
+
+        <?php endif; ?>
 
     </form>
-
-    <!-- aqui coloco un formulario oculto para poder mandarle a la pagina index.php, los valores que tenia antes de darle al boton de cancelar -->
-
 
 </body>
 
