@@ -9,6 +9,7 @@
     <title>SGT</title>
 </head>
 
+<!-- TENEMOS UN ERROR EN EL SELECT DEL URGENTE, NO SE CAMBIA AL DARLE CANCELAR  -->
 
 <body>
     <?php include_once 'cabecera.html' ?>
@@ -25,12 +26,12 @@
             <input type="text" name="titulo" id="titulo" value="<?php echo $tarea->titulo ?>">
 
             <select name="urgencia" id="">
-                <option value="urgente" <?php if ($tarea->urgencia == 'urgente') {
+                <option value="urgente" <?php if ($tarea->urgencia === 'urgente') {
                                             echo 'selected';
                                         }  ?>>Urgente</option>
-                <option value="noUrgente" <?php if ($tarea->urgencia == 'noUrgente') {
+                <option value="noUrgente" <?php if ($tarea->urgencia === 'noUrgente') {
                                                 echo 'selected';
-                                            }  ?>>No Urgente</option>
+                                            } ?>>No Urgente</option>
             </select>
 
             <label for="descripcion">Descripcion</label>

@@ -23,40 +23,14 @@
 
             <h1>Tarea agregada</h1>
 
-            <fieldset>
-                <legend>Tarea</legend>
-                <h2>Titulo:</h2>
-                <h3><?php echo $tarea->titulo; ?></h3>
-                <?php echo $tarea->titulo; ?>
-                <?php echo $tarea->titulo; ?>
-
-                <!-- aqui debo agragar una imagen '!' si es urgente o no -->
-
-                <details>
-                    <summary>Descripcion</summary>
-                    <p><?php echo $tarea->descripcion; ?></p>
-                </details>
-
-            </fieldset>
+            <?php include 'verTarea.php' ?>
             <a href="index.php">Volver al inicio</a>
 
         <?php else : ?>
 
             <h1>Vista previa</h1>
 
-            <fieldset>
-                <legend>Tarea</legend>
-                <h2>Titulo:</h2>
-                <h3> <?php echo $tarea->titulo; ?></h3>
-
-                <!-- aqui debo agragar una imagen '!' si es urgente o no -->
-
-                <details>
-                    <summary>Descripcion</summary>
-                    <p><?php echo $tarea->descripcion; ?></p>
-                </details>
-
-            </fieldset>
+            <?php include 'verTarea.php' ?>
 
             <input type="hidden" name="titulo" value="<?php echo $tarea->titulo; ?>">
             <input type="hidden" name="urgecia" value="<?php echo $tarea->urgencia; ?>">
