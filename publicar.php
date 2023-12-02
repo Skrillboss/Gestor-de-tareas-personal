@@ -16,6 +16,10 @@
 
     $tarea = Tarea::fromBody();
 
+    session_start();
+
+
+
     ?>
 
     <form method="POST" action="publicar.php">
@@ -24,6 +28,16 @@
             <h1>Tarea agregada</h1>
 
             <?php include 'verTarea.php' ?>
+
+            <?php
+            if (!isset($_SESSION['tareas'])) {
+                $_SESSION['tareas'] = array();
+            }
+            array_push($_SESSION['tareas'], $tarea);
+
+            ?>
+
+
             <a href="index.php">Volver al inicio</a>
 
         <?php else : ?>

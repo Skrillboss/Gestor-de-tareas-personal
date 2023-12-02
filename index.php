@@ -9,13 +9,21 @@
     <title>SGT</title>
 </head>
 
-<!-- TENEMOS UN ERROR EN EL SELECT DEL URGENTE, NO SE CAMBIA AL DARLE CANCELAR  -->
-
 <body>
     <?php include_once 'cabecera.html' ?>
 
     <?php
     $tarea = Tarea::fromBody();
+
+    session_start();
+
+    $tareas = array();
+
+    if (isset($_SESSION['tareas'])) {
+        $tareas = $_SESSION['tareas'];
+    }
+
+
     ?>
 
     <form method="POST" action="publicar.php">
@@ -37,9 +45,20 @@
             <label for="descripcion">Descripcion</label>
             <input type="text" name="descripcion" id="descripcion" value="<?php echo $tarea->descripcion ?>">
         </fieldset>
-        <button type="submit">Agragar tarea</button>
+        <button type="submit">Agregar tarea</button>
     </form>
 
+    <?php if ($tareas) : ?>
+        <h2>Tareas agregadas</h2>
+        <?php
+
+        foreach ($tareas as $tarea) {
+            include 'verTarea.php';
+        }
+
+        ?>
+
+    <?php endif; ?>
 
 </body>
 
