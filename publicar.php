@@ -33,7 +33,7 @@
             <?php include 'verTarea.php' ?>
 
             <input type="hidden" name="titulo" value="<?php echo $tarea->titulo; ?>">
-            <input type="hidden" name="urgecia" value="<?php echo $tarea->urgencia; ?>">
+            <input type="hidden" name="urgencia" value="<?php echo $tarea->urgencia; ?>">
             <input type="hidden" name="descripcion" value="<?php echo $tarea->descripcion; ?>">
 
             <button type="submit" name="aceptar">Aceptar</button>

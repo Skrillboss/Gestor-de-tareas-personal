@@ -27,10 +27,10 @@
 
             <select name="urgencia" id="">
                 <option value="urgente" <?php if ($tarea->urgencia === 'urgente') {
-                                            echo 'selected';
+                                            echo "selected";
                                         }  ?>>Urgente</option>
                 <option value="noUrgente" <?php if ($tarea->urgencia === 'noUrgente') {
-                                                echo 'selected';
+                                                echo "selected";
                                             } ?>>No Urgente</option>
             </select>
 
