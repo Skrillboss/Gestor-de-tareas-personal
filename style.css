@@ -1,0 +1,27 @@
+body{
+font-family: 'Courier New', Courier, monospace;
+margin: 0;
+background: black;
+color: white;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+.lista{
+  display: flex;
+}
+
+.listaUrgente{
+  justify-self: flex-start;
+}
+
+.listaNoUrgente{
+  justify-content: flex-end;
+}
+
+img{
+  height: 30px;
+}
+

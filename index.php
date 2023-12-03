@@ -41,7 +41,7 @@
                                                 echo "selected";
                                             } ?>>No Urgente</option>
             </select>
-
+<div></div>
             <label for="descripcion">Descripcion</label>
             <input type="text" name="descripcion" id="descripcion" value="<?php echo $tarea->descripcion ?>">
         </fieldset>
@@ -50,13 +50,25 @@
 
     <?php if ($tareas) : ?>
         <h2>Tareas agregadas</h2>
+        <section class="lista">
         <?php
-
         foreach ($tareas as $tarea) {
-            include 'verTarea.php';
+            if($tarea->urgencia === 'urgente'){
+                echo 'lista de urgente';
+                echo "<div class ='listaUrgente>'";
+                include 'verTarea.php';
+                echo '</div>';
+            }
+             if($tarea->urgencia === 'noUrgente'){
+                echo 'lista de NO urgente';
+                echo "<div class ='listaNoUrgente'>";
+                include 'verTarea.php';
+                echo '</div>';
+            }
         }
 
         ?>
+        </section>
 
     <?php endif; ?>
 

@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <?php include_once 'cabecera.html' ?>
 
     <?php
 
@@ -36,7 +37,6 @@
             array_push($_SESSION['tareas'], $tarea);
 
             ?>
-
 
             <a href="index.php">Volver al inicio</a>
 
