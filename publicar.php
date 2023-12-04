@@ -1,6 +1,3 @@
-<?php include_once 'modelo/entidades/tarea.php' ?>
-<?php include_once 'modelo/servicios/servicioTareas.php' ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +9,8 @@
 </head>
 
 <body>
-    <?php include_once 'cabecera.html' ?>
+
+    <?php include_once 'menu.php' ?>
 
     <?php
 
@@ -27,7 +25,7 @@
 
             <h1>Tarea agregada</h1>
 
-            <?php include 'verTarea.php' ?>
+            <?php include 'modelo/visualizacion/verTarea.php' ?>
 
             <?php
             ServicioTareas::obtenerTarea();
@@ -40,7 +38,7 @@
 
             <h1>Vista previa</h1>
 
-            <?php include 'verTarea.php' ?>
+            <?php include 'modelo/visualizacion/verTarea.php' ?>
 
             <input type="hidden" name="titulo" value="<?php echo $tarea->titulo; ?>">
             <input type="hidden" name="urgencia" value="<?php echo $tarea->urgencia; ?>">

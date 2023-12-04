@@ -1,6 +1,3 @@
-<?php include_once 'modelo/entidades/tarea.php' ?>
-<?php include_once 'modelo/servicios/servicioTareas.php' ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +8,8 @@
 </head>
 
 <body>
-    <?php include_once 'cabecera.html' ?>
+
+    <?php include_once 'menu.php' ?>
 
     <?php
     $tarea = Tarea::fromBody();
@@ -49,7 +47,7 @@
         <section class="lista">
             <?php
             foreach ($tareas as $tarea) {
-                include 'verTarea.php';
+                include 'modelo/visualizacion/verTarea.php';
             }
 
             ?>
