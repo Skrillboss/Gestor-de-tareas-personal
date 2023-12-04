@@ -1,4 +1,5 @@
-<?php include_once 'tarea.php' ?>
+<?php include_once 'modelo/entidades/tarea.php' ?>
+<?php include_once 'modelo/servicios/servicioTareas.php' ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,12 +18,7 @@
 
     session_start();
 
-    $tareas = array();
-
-    if (isset($_SESSION['tareas'])) {
-        $tareas = $_SESSION['tareas'];
-    }
-
+    $tareas = ServicioTareas::obtenerTarea()
 
     ?>
 
@@ -41,7 +37,7 @@
                                                 echo "selected";
                                             } ?>>No Urgente</option>
             </select>
-<div></div>
+            <div></div>
             <label for="descripcion">Descripcion</label>
             <input type="text" name="descripcion" id="descripcion" value="<?php echo $tarea->descripcion ?>">
         </fieldset>
@@ -51,23 +47,12 @@
     <?php if ($tareas) : ?>
         <h2>Tareas agregadas</h2>
         <section class="lista">
-        <?php
-        foreach ($tareas as $tarea) {
-            if($tarea->urgencia === 'urgente'){
-                echo 'lista de urgente';
-                echo "<div class ='listaUrgente>'";
+            <?php
+            foreach ($tareas as $tarea) {
                 include 'verTarea.php';
-                echo '</div>';
             }
-             if($tarea->urgencia === 'noUrgente'){
-                echo 'lista de NO urgente';
-                echo "<div class ='listaNoUrgente'>";
-                include 'verTarea.php';
-                echo '</div>';
-            }
-        }
 
-        ?>
+            ?>
         </section>
 
     <?php endif; ?>

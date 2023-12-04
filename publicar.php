@@ -1,4 +1,5 @@
-<?php include_once 'tarea.php' ?>
+<?php include_once 'modelo/entidades/tarea.php' ?>
+<?php include_once 'modelo/servicios/servicioTareas.php' ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,8 +20,6 @@
 
     session_start();
 
-
-
     ?>
 
     <form method="POST" action="publicar.php">
@@ -31,11 +30,8 @@
             <?php include 'verTarea.php' ?>
 
             <?php
-            if (!isset($_SESSION['tareas'])) {
-                $_SESSION['tareas'] = array();
-            }
-            array_push($_SESSION['tareas'], $tarea);
-
+            ServicioTareas::obtenerTarea();
+            ServicioTareas::insertarOferta($tarea);
             ?>
 
             <a href="index.php">Volver al inicio</a>
