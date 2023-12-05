@@ -5,6 +5,8 @@ class ServicioAutenticacion
 
     public static function verificar($nombre, $contrasena)
     {
-        return $nombre === 'luis' && $contrasena === '12345';
+        $respuestaBd = MySql::consultaLectura("SELECT contrasena FROM usuarios WHERE nombre = '$nombre'");
+
+        return count($respuestaBd) === 1 && $respuestaBd[0]['contrasena'] === $contrasena;
     }
 }

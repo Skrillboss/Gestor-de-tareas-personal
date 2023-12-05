@@ -1,6 +1,7 @@
 <?php session_start(); ?>
 <?php include_once 'autenticacion.php'; ?>
 <?php include_once '../modelo/servicios/servicioAutenticacion.php' ?>
+<?php include_once '../modelo/mySql/mySql.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
