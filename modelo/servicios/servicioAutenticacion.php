@@ -7,6 +7,8 @@ class ServicioAutenticacion
     {
         $respuestaBd = MySql::consultaLectura("SELECT contrasena FROM usuarios WHERE nombre = '$nombre'");
 
-        return count($respuestaBd) === 1 && $respuestaBd[0]['contrasena'] === $contrasena;
+        $hash = hash('sha256', $contrasena);
+
+        return count($respuestaBd) === 1 && $respuestaBd[0]['contrasena'] === $hash;
     }
 }
