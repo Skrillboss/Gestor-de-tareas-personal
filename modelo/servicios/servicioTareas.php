@@ -3,22 +3,38 @@
 class ServicioTareas
 {
 
-    private static function comprovarExistencia()
-    {
-        if (!isset($_SESSION['tareas'])) {
-            $_SESSION['tareas'] = array();
-        }
-    }
-
     public static function obtenerTarea()
     {
-        self::comprovarExistencia();
-        return $_SESSION['tareas'];
+        $resultado = MySql::consultaLectura('SELECT * FROM tareas');
+
+        $retorno = array();
+
+        foreach ($resultado as $filas) {
+
+            $urgencia = $filas['urgencia'] ? 'urgente' : 'noUrgente';
+
+            $fecha = new DateTime($filas['fecha']);
+
+            $tareas = new Tarea($filas['titulo'], $urgencia, $filas['descripcion'], $fecha);
+
+            array_push($retorno, $tareas);
+        }
+        return $retorno;
     }
 
     public static function insertarOferta($tarea)
     {
-        self::comprovarExistencia();
-        array_push($_SESSION['tareas'], $tarea);
+
+        // INSERT INTO `tareas`(`urgencia`, `fecha`, `titulo`, `descripcion`) 
+        // VALUES ('[value-2]','[value-3]','[value-4]','[value-5]')
+
+        $urgencia = $tarea->urgencia === 'urgente' ? 0 : 1;
+
+        $fecha = $tarea->fecha->format('c');
+
+        $consulta = "INSERT INTO tareas (urgencia, fecha, titulo, descripcion)
+        VALUES ('$urgencia','$fecha','$tarea->titulo','$tarea->descripcion')";
+
+        MySql::consultaEscritura($consulta);
     }
 }

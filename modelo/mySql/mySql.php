@@ -3,11 +3,16 @@
 class MySql
 {
 
-    public static function consultaLectura($consulta)
+    private static function conectar()
     {
         $config = parse_ini_file(__DIR__ . '/../../config.ini');
 
-        $conexion = new mysqli($config['host'], $config['user'], $config['pass'], $config['db']);
+        return new mysqli($config['host'], $config['user'], $config['pass'], $config['db']);
+    }
+
+    public static function consultaLectura($consulta)
+    {
+        $conexion = self::conectar();
         $recepcion = $conexion->query($consulta);
         $envio = array();
         while ($fila = $recepcion->fetch_assoc()) {
@@ -15,5 +20,12 @@ class MySql
         }
 
         return $envio;
+    }
+
+    public static function consultaEscritura($consulta)
+    {
+        $conexion = self::conectar();
+
+        $conexion->query($consulta);
     }
 }
