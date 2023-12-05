@@ -1,4 +1,6 @@
+<?php session_start(); ?>
 <?php include_once 'autenticacion.php'; ?>
+<?php include_once '../modelo/servicios/servicioAutenticacion.php' ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,9 +17,15 @@
 
     <?php
 
+    if (Autenticacion::estaAutenticado()) {
+        header('Location: ../index.php');
+        exit();
+    }
+
     if (isset($_POST['usuario']) && isset($_POST['contrasena'])) {
 
         if (Autenticacion::autenticar($_POST['usuario'], $_POST['contrasena'])) {
+
             header('Location: ../index.php');
         } else {
             echo 'Usuario o contraseña incorrectos';
@@ -32,7 +40,7 @@
         <fieldset>
             <legend>Inicio de sesion</legend>
             <label for="usuario"></label>
-            <input type="text" id="usuario" name="usuario">
+            <input type="text" id="usuario" name="usuario" value="<?php echo Autenticacion::obtenerCookieUsuario(); ?>">
 
             <label for="contrasena"></label>
             <input type="password" id="contrasena" name="contrasena">

@@ -12,9 +12,14 @@
     <?php include_once 'menu.php' ?>
 
     <?php
-    $tarea = Tarea::fromBody();
 
-    session_start();
+    if (!Autenticacion::estaAutenticado()) {
+        header('Location: login/logout.php');
+        exit();
+    }
+
+
+    $tarea = Tarea::fromBody();
 
     $tareas = ServicioTareas::obtenerTarea()
 
