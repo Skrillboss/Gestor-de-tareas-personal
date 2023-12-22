@@ -5,7 +5,7 @@ class ServicioAutenticacion
 
     public static function verificar($nombre, $contrasena)
     {
-        $respuestaBd = MySql::consultaLectura("SELECT contrasena FROM usuarios WHERE nombre = '$nombre'");
+        $respuestaBd = MySql::consultaLectura("SELECT contrasena FROM usuarios WHERE nombre = ?", $nombre);
 
         $hash = hash('sha256', $contrasena);
 

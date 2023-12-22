@@ -10,22 +10,42 @@ class MySql
         return new mysqli($config['host'], $config['user'], $config['pass'], $config['db']);
     }
 
-    public static function consultaLectura($consulta)
+    public static function consultaLectura($consulta, ...$parametros)
     {
-        $conexion = self::conectar();
-        $recepcion = $conexion->query($consulta);
-        $envio = array();
-        while ($fila = $recepcion->fetch_assoc()) {
-            array_push($envio, $fila);
+        $connection = self::conectar();
+
+        $return = array();
+
+        if ($connection->connect_error) {
+            die('Coneccion fallida: ' . $connection->connect_error);
+        }
+        $stmt = $connection->prepare($consulta);
+
+        if ($parametros) {
+            $type = "";
+            foreach ($parametros as $parametro) {
+                $type .= is_integer($parametro) ? "i" : "s";
+            }
+            $stmt->bind_param($type, ...$parametros);
+        }
+        $stmt->execute();
+
+        if ($stmt->errno) {
+            die('Error en la ejecucion de la consulta: ' . $stmt->error);
         }
 
-        return $envio;
+        $answer = $stmt->get_result();
+
+        while ($row = $answer->fetch_assoc()) {
+            array_push($return, $row);
+        }
+        return $return;
     }
 
     public static function consultaEscritura($consulta)
     {
-        $conexion = self::conectar();
+        $connetion = self::conectar();
 
-        $conexion->query($consulta);
+        $connetion->query($consulta);
     }
 }

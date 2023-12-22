@@ -25,8 +25,6 @@ class ServicioTareas
     public static function insertarOferta($tarea)
     {
 
-        // INSERT INTO `tareas`(`urgencia`, `fecha`, `titulo`, `descripcion`) 
-        // VALUES ('[value-2]','[value-3]','[value-4]','[value-5]')
 
         $urgencia = $tarea->urgencia === 'urgente' ? 0 : 1;
 
