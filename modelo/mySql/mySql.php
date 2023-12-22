@@ -10,7 +10,22 @@ class MySql
         return new mysqli($config['host'], $config['user'], $config['pass'], $config['db']);
     }
 
-    public static function consultaLectura($consulta, ...$parametros)
+    private static function prepare($connection, $query, $parameters)
+    {
+
+        $stmt = $connection->prepare($query);
+
+        if ($parameters) {
+            $type = "";
+            foreach ($parameters as $parameter) {
+                $type .= is_integer($parameter) ? "i" : "s";
+            }
+            $stmt->bind_param($type, ...$parameters);
+        }
+        return $stmt;
+    }
+
+    public static function consultaLectura($query, ...$parameters)
     {
         $connection = self::conectar();
 
@@ -19,20 +34,9 @@ class MySql
         if ($connection->connect_error) {
             die('Coneccion fallida: ' . $connection->connect_error);
         }
-        $stmt = $connection->prepare($consulta);
+        $stmt = self::prepare($connection, $query, $parameters);
 
-        if ($parametros) {
-            $type = "";
-            foreach ($parametros as $parametro) {
-                $type .= is_integer($parametro) ? "i" : "s";
-            }
-            $stmt->bind_param($type, ...$parametros);
-        }
         $stmt->execute();
-
-        if ($stmt->errno) {
-            die('Error en la ejecucion de la consulta: ' . $stmt->error);
-        }
 
         $answer = $stmt->get_result();
 
