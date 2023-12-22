@@ -25,14 +25,13 @@ class ServicioTareas
     public static function insertarOferta($tarea)
     {
 
-
         $urgencia = $tarea->urgencia === 'urgente' ? 0 : 1;
 
         $fecha = $tarea->fecha->format('c');
 
         $consulta = "INSERT INTO tareas (urgencia, fecha, titulo, descripcion)
-        VALUES ('$urgencia','$fecha','$tarea->titulo','$tarea->descripcion')";
+        VALUES (?,?,?,?)";
 
-        MySql::consultaEscritura($consulta);
+        MySql::consultaEscritura($consulta, $urgencia, $fecha, $tarea->titulo, $tarea->descripcion);
     }
 }

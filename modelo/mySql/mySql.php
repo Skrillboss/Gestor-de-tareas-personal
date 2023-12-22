@@ -46,10 +46,12 @@ class MySql
         return $return;
     }
 
-    public static function consultaEscritura($consulta)
+    public static function consultaEscritura($query, ...$parameters)
     {
-        $connetion = self::conectar();
+        $connection = self::conectar();
 
-        $connetion->query($consulta);
+        $stmt = self::prepare($connection, $query, $parameters);
+
+        $stmt->execute();
     }
 }
