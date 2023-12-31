@@ -3,11 +3,16 @@
 class MySql
 {
 
-    private static function conectar()
+    private static function connect()
     {
+        $connection = null;
+
         $config = parse_ini_file(__DIR__ . '/../../config.ini');
 
-        return new mysqli($config['host'], $config['user'], $config['pass'], $config['db']);
+        if (!$connection) {
+            $connection = new mysqli($config['host'], $config['user'], $config['pass'], $config['db']);
+        }
+        return $connection;
     }
 
     private static function prepare($connection, $query, $parameters)
@@ -25,9 +30,9 @@ class MySql
         return $stmt;
     }
 
-    public static function consultaLectura($query, ...$parameters)
+    public static function readQuery($query, ...$parameters)
     {
-        $connection = self::conectar();
+        $connection = self::connect();
 
         $return = array();
 
@@ -46,9 +51,9 @@ class MySql
         return $return;
     }
 
-    public static function consultaEscritura($query, ...$parameters)
+    public static function writeQuery($query, ...$parameters)
     {
-        $connection = self::conectar();
+        $connection = self::connect();
 
         $stmt = self::prepare($connection, $query, $parameters);
 

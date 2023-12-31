@@ -5,7 +5,7 @@ class ServicioTareas
 
     public static function obtenerTarea()
     {
-        $resultado = MySql::consultaLectura('SELECT * FROM tareas');
+        $resultado = MySql::readQuery('SELECT * FROM tareas');
 
         $retorno = array();
 
@@ -32,6 +32,6 @@ class ServicioTareas
         $consulta = "INSERT INTO tareas (urgencia, fecha, titulo, descripcion)
         VALUES (?,?,?,?)";
 
-        MySql::consultaEscritura($consulta, $urgencia, $fecha, $tarea->titulo, $tarea->descripcion);
+        MySql::writeQuery($consulta, $urgencia, $fecha, $tarea->titulo, $tarea->descripcion);
     }
 }
